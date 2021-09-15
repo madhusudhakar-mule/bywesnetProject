@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:file="http://www.mulesoft.org/schema/mule/file"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="15septemberFlow" doc:id="7ff44175-fc7c-4fa9-bbdf-d54f4b233139" >
+		<http:listener doc:name="Listener" doc:id="7cef552b-a5c1-46ad-a5fb-ec119ee798a8" config-ref="HTTP_Listener_config" path="${http.listener.path}"/>
+		<file:read doc:id="7454d1b7-7906-45a1-8b8e-1493a795153f" config-ref="File_Config" path="511xml.xml" outputMimeType="application/xml" doc:name="Read-xml-file"/>
+		<logger level="INFO" doc:name="xml-log" doc:id="a8fa12da-4126-41a2-a5e3-7369507b1d75" message="#[payload]"/>
+		<set-variable value="#[payload]" doc:name="Set Variable" doc:id="77439cb3-68a1-4504-812f-f3cf5a5b3226" variableName="After-Read"/>
+		<ee:transform doc:name="Transform-xml-to-json" doc:id="d6afae86-fedb-49fc-b518-9727833ebea7" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="json-log" doc:id="fd15dbf3-b456-4fe0-aded-bdd4c3267177" message="#[payload]"/>
+		<set-variable value="#[payload]" doc:name="Set Variable" doc:id="24a7e073-1cc2-45e9-9f02-b964f7fc4e48" variableName="Before-write"/>
+		<file:write doc:name="Write" doc:id="03d844bd-c752-4e0c-898e-42c8391f2ac8" config-ref="File_Config" path="C:\mule\capgemini\Fileout\madhu.json" mode="CREATE_NEW"/>
+		<logger level="INFO" doc:name="Logger" doc:id="f8bb2c1d-68ec-4bfc-8f5c-e5a63bb7f93a" message="#[payload]"/>
+	</flow>
+</mule>

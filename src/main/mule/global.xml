@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="3df4a7c0-9acd-4104-abbf-2fc1d7d0d5f6" >
+		<http:listener-connection host="${http.listener.host}" port="${http.listener.port}" />
+	</http:listener-config>
+	<file:config name="File_Config" doc:name="File Config" doc:id="748136e7-9fd4-4caa-926f-590e36eb6187" >
+		<file:connection workingDir="C:\Users\passudha\AnypointStudio\studio-workspace\by-wesnet\src\main\resources\Item511" />
+	</file:config>
+	<configuration-properties doc:name="Configuration properties" doc:id="b877effe-a974-4282-a317-05daf1094727" file="confg\dev.yaml" />
+</mule>
